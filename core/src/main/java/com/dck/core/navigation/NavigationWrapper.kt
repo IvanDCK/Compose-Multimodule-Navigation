@@ -18,7 +18,6 @@ fun NavigationWrapper() {
     val navController = rememberNavController()
     val navHostEngine = rememberNavHostEngine()
 
-
     DestinationsNavHost(navController = navController, engine = navHostEngine, navGraph = NavGraphs.main) {
 
         composable(HomeScreenDestination) {
@@ -27,12 +26,13 @@ fun NavigationWrapper() {
             }
         }
         composable(ScreenADestination) {
-            ScreenA {
-                 destinationsNavigator.navigate(ScreenBDestination)
+            ScreenA (navigateBack = destinationsNavigator::popBackStack){
+                destinationsNavigator.navigate(ScreenBDestination(it))
             }
         }
         composable(ScreenBDestination) {
-            ScreenB {
+            val message = ScreenBDestination.argsFrom(navBackStackEntry.arguments).message
+            ScreenB(message = message, navigateBack = destinationsNavigator::popBackStack) {
                 destinationsNavigator.navigate(HomeScreenDestination)
             }
         }
