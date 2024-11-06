@@ -1,4 +1,4 @@
-package com.dck.module_b.presentation
+package com.dck.module_a.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,34 +14,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenB(navigateToC: (String) -> Unit, navigateBack: () -> Unit) {
-
-    var text by remember { mutableStateOf("") }
+fun HomeScreen(navigateToA : () -> Unit) {
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Screen B") },
-                navigationIcon = {
-                    IconButton(
-                        onClick = { navigateBack() }
-                    ) {
-                        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                }
+                title = { Text(text = "Home Screen") },
             )
         }
     ) { innerPadding ->
@@ -50,20 +36,15 @@ fun ScreenB(navigateToC: (String) -> Unit, navigateBack: () -> Unit) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Screen B")
+            Text(text = "Home Screen")
             Spacer(modifier = Modifier.height(16.dp))
-
-            TextField(
-                value = text,
-                onValueChange = { text = it }
-            )
-
             Button(
-                onClick = { navigateToC(text) }
+                onClick = { navigateToA() }
             ) {
-                Text(text = "Navigate to C")
+                Text(text = "Navigate to A")
             }
+
         }
     }
-    
+
 }
