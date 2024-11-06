@@ -1,9 +1,26 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrainsKotlinSerialization)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.google.ksp)
 }
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
+}
+
+ksp {
+    arg("compose-destinations.moduleName", "module_b")
+}
+
 
 android {
     namespace = "com.dck.module_b"
@@ -50,4 +67,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    implementation(libs.raamCosta.composeDestinations)
+    ksp(libs.ksp)
 }

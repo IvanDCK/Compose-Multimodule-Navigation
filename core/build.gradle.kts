@@ -1,13 +1,27 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrainsKotlinSerialization)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.google.ksp)
+}
+
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
 }
 
 android {
     namespace = "com.dck.core"
     compileSdk = 34
+
 
     defaultConfig {
         minSdk = 24
@@ -34,6 +48,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -53,4 +68,9 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.raamCosta.composeDestinations)
+    ksp(libs.ksp)
+    implementation(project(":module_a"))
+    implementation(project(":module_b"))
 }

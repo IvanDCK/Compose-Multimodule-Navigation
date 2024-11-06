@@ -1,4 +1,4 @@
-package com.dck.module_b.presentation
+package com.dck.module_a.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,27 +16,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Destination
+@Destination(start = true)
 @Composable
-fun ScreenB() {
-    Scaffold(topBar = { TopAppBar(title = { Text(text = "Screen B") }) }) { innerPadding ->
+fun HomeScreen(
+    navigateToA: () -> Unit
+) {
+    Scaffold(topBar = { TopAppBar(title = { Text(text = "Home Screen") }) }) { innerPadding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+            modifier = Modifier.fillMaxSize().padding(innerPadding),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Screen B")
+            Text(text = "Home Screen")
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-
+                    navigateToA()
                 }
             ) {
-                Text(text = "Navigate to Home")
+                Text(text = "Navigate to A")
             }
         }
     }
