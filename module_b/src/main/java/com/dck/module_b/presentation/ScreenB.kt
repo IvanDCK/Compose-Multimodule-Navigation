@@ -15,12 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.dck.module_b.navigation.ModuleBGraph
 import com.ramcosta.composedestinations.annotation.Destination
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Destination
+@Destination<ModuleBGraph>(start = true)
 @Composable
-fun ScreenB() {
+fun ScreenB(navigateToHome: () -> Unit) {
     Scaffold(topBar = { TopAppBar(title = { Text(text = "Screen B") }) }) { innerPadding ->
         Column(
             modifier = Modifier
@@ -33,7 +34,7 @@ fun ScreenB() {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
-
+                    navigateToHome()
                 }
             ) {
                 Text(text = "Navigate to Home")

@@ -15,10 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.dck.module_a.navigation.ModuleAGraph
 import com.ramcosta.composedestinations.annotation.Destination
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Destination
+@Destination<ModuleAGraph>
 @Composable
 fun ScreenA(navigateToB: () -> Unit) {
     Scaffold(topBar = { TopAppBar(title = { Text(text = "Screen A") }) }) { innerPadding ->

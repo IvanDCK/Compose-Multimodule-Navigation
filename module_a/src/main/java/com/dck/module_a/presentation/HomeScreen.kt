@@ -15,12 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.dck.module_a.navigation.ModuleAGraph
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Destination(start = true)
+@Destination<ModuleAGraph>(start = true)
 @Composable
 fun HomeScreen(
     navigateToA: () -> Unit

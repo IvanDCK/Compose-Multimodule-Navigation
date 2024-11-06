@@ -1,21 +1,17 @@
 package com.dck.core.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.navigation.compose.rememberNavController
 import com.dck.module_a.presentation.HomeScreen
-import com.dck.module_a.presentation.NavGraphs
 import com.dck.module_a.presentation.ScreenA
-import com.dck.module_a.presentation.destinations.HomeScreenDestination
-import com.dck.module_a.presentation.destinations.ScreenADestination
-import com.dck.module_b.presentation.destinations.ScreenBDestination
+import com.dck.module_b.presentation.ScreenB
 import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.annotation.NavGraph
-import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.generated.NavGraphs
+import com.ramcosta.composedestinations.generated.modulea.destinations.HomeScreenDestination
+import com.ramcosta.composedestinations.generated.modulea.destinations.ScreenADestination
+import com.ramcosta.composedestinations.generated.moduleb.destinations.ScreenBDestination
 import com.ramcosta.composedestinations.manualcomposablecalls.composable
 import com.ramcosta.composedestinations.rememberNavHostEngine
-import com.ramcosta.composedestinations.spec.NavGraphSpec
-import com.ramcosta.composedestinations.spec.Route
 
 @Composable
 fun NavigationWrapper() {
@@ -23,7 +19,8 @@ fun NavigationWrapper() {
     val navHostEngine = rememberNavHostEngine()
 
 
-    DestinationsNavHost(navController = navController, engine = navHostEngine, navGraph = NavGraphs.root) {
+    DestinationsNavHost(navController = navController, engine = navHostEngine, navGraph = NavGraphs.main) {
+
         composable(HomeScreenDestination) {
             HomeScreen {
                 destinationsNavigator.navigate(ScreenADestination)
@@ -31,7 +28,12 @@ fun NavigationWrapper() {
         }
         composable(ScreenADestination) {
             ScreenA {
-                // destinationsNavigator.navigate(ScreenBDestination)
+                 destinationsNavigator.navigate(ScreenBDestination)
+            }
+        }
+        composable(ScreenBDestination) {
+            ScreenB {
+                destinationsNavigator.navigate(HomeScreenDestination)
             }
         }
     }
