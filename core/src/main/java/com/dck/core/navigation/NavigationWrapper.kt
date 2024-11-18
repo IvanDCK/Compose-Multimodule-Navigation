@@ -5,10 +5,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.dck.module_b.presentation.model.Mobile
+import com.dck.core.navigation.type.createNavType
 import com.dck.module_a.presentation.HomeScreen
 import com.dck.module_a.presentation.ScreenA
 import com.dck.module_b.presentation.ScreenB
 import com.dck.module_b.presentation.ScreenC
+import kotlin.reflect.typeOf
 
 @Composable
 fun NavigationWrapper() {
@@ -20,29 +23,34 @@ fun NavigationWrapper() {
         startDestination = HomeScreen
     ) {
         composable<HomeScreen> {
-           HomeScreen {
-                navController.navigate(ScreenA) }
+            HomeScreen {
+                navController.navigate(ScreenA)
+            }
         }
         composable<ScreenA> {
-            ScreenA (
-               navigateToB = { navController.navigate(ScreenB) },
+            ScreenA(
+                navigateToB = { navController.navigate(ScreenB) },
                 navigateBack = { navController.popBackStack() }
             )
         }
         composable<ScreenB> {
             ScreenB(
-                navigateToC = { message -> navController.navigate(ScreenC(message = message)) },
+                navigateToC = { mobile ->
+                    navController.navigate(ScreenC(mobile))
+                },
                 navigateBack = { navController.popBackStack() }
             )
         }
-       composable<ScreenC> { backStackEntry ->
-           val message = backStackEntry.toRoute<ScreenC>().message
-           ScreenC(message = message,
-               navigateToHome = { navController.navigate(HomeScreen) {
-                   popUpTo<HomeScreen>{ inclusive = true }
-               } },
-               navigateBack = { navController.popBackStack() }
-               )
-       }
+        composable<ScreenC>(typeMap = mapOf(typeOf<Mobile>() to createNavType<Mobile>())) { backStackEntry ->
+            val screenC = backStackEntry.toRoute<ScreenC>()
+            ScreenC(mobile = screenC.mobile,
+                navigateToHome = {
+                    navController.navigate(HomeScreen) {
+                        popUpTo<HomeScreen> { inclusive = true }
+                    }
+                },
+                navigateBack = { navController.popBackStack() }
+            )
+        }
     }
 }

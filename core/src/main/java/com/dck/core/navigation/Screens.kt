@@ -1,5 +1,6 @@
 package com.dck.core.navigation
 
+import com.dck.module_b.presentation.model.Mobile
 import kotlinx.serialization.Serializable
 
 
@@ -13,4 +14,4 @@ object ScreenA
 object ScreenB
 
 @Serializable
-data class ScreenC(val message: String)
+data class ScreenC(val mobile: Mobile)
