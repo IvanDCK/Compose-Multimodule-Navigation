@@ -5,10 +5,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.dck.core.navigation.type.createNavType
 import com.dck.module_a.presentation.HomeScreen
 import com.dck.module_a.presentation.ScreenA
+import com.dck.module_b.model.Mobile
 import com.dck.module_b.presentation.ScreenB
 import com.dck.module_b.presentation.ScreenC
+import kotlin.reflect.typeOf
 
 @Composable
 fun NavigationWrapper() {
@@ -31,13 +34,14 @@ fun NavigationWrapper() {
         }
         composable<ScreenB> {
             ScreenB(
-                navigateToC = { message -> navController.navigate(ScreenC(message = message)) },
+                navigateToC = { mobile -> navController.navigate(ScreenC(mobile = mobile)) },
                 navigateBack = { navController.popBackStack() }
             )
         }
-       composable<ScreenC> { backStackEntry ->
-           val message = backStackEntry.toRoute<ScreenC>().message
-           ScreenC(message = message,
+       composable<ScreenC>(typeMap = mapOf(typeOf<Mobile>() to createNavType<Mobile>())) { backStackEntry ->
+           val screenC = backStackEntry.toRoute<ScreenC>()
+           ScreenC(
+               mobile = screenC.mobile,
                navigateToHome = { navController.navigate(HomeScreen) {
                    popUpTo<HomeScreen>{ inclusive = true }
                } },

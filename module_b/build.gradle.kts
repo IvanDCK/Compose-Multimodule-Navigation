@@ -54,6 +54,9 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
 
-
+    // Koin
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
+    implementation(libs.koin.androidx.compose)
 
 }

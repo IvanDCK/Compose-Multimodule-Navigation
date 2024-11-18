@@ -19,11 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.dck.module_b.model.Mobile
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenC(message: String, navigateToHome: () -> Unit, navigateBack: () -> Unit) {
+fun ScreenC(mobile: Mobile, navigateToHome: () -> Unit, navigateBack: () -> Unit) {
 
     Scaffold(
         topBar = {
@@ -46,7 +47,10 @@ fun ScreenC(message: String, navigateToHome: () -> Unit, navigateBack: () -> Uni
         ) {
             Text(text = "Screen C")
             Spacer(modifier = Modifier.height(16.dp))
-            Text(text = message)
+            Text(text = mobile.model)
+            Text(text = mobile.color)
+            Text(text = mobile.price.toString())
+            Text(text = mobile.screenSize.toString())
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = { navigateToHome() }

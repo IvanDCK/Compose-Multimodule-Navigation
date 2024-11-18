@@ -14,22 +14,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.dck.module_b.model.Mobile
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenB(navigateToC: (String) -> Unit, navigateBack: () -> Unit) {
+fun ScreenB(navigateToC: (Mobile) -> Unit, navigateBack: () -> Unit) {
 
-    var text by remember { mutableStateOf("") }
+    val screenBViewModel: ScreenBViewModel = koinViewModel()
 
     Scaffold(
         topBar = {
@@ -53,13 +50,8 @@ fun ScreenB(navigateToC: (String) -> Unit, navigateBack: () -> Unit) {
             Text(text = "Screen B")
             Spacer(modifier = Modifier.height(16.dp))
 
-            TextField(
-                value = text,
-                onValueChange = { text = it }
-            )
-
             Button(
-                onClick = { navigateToC(text) }
+                onClick = { navigateToC(screenBViewModel.injectMobile()) }
             ) {
                 Text(text = "Navigate to C")
             }

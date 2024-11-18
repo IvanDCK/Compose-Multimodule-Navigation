@@ -65,4 +65,9 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":module_a"))
     implementation(project(":module_b"))
+
+    // Koin
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
+    implementation(libs.koin.androidx.compose)
 }
